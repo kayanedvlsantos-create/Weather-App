@@ -41,7 +41,6 @@ git clone https://github.com/seu-usuario/weather-app.git
 
 2. Acesse a pasta:
 
-```bash
 cd weather-app
 
 3. Abra o projeto com o VS Code e execute com o Live Server
