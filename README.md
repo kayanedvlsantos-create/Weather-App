@@ -58,3 +58,31 @@ weather-app/
 ├── index.html
 ├── README.md
 └── .gitignore
+```
+
+## ▶️ Como executar
+
+### Clone o repositório
+```git clone <url-do-repositorio>```
+
+### Entre na pasta
+```cd weather-app```
+
+### Abra no VS Code
+```code . ```
+
+### Execute com Live Server
+
+
+## 🌐 APIs utilizadas
+
+- [Open-Meteo](https://open-meteo.com/)
+- [Open-Meteo Geocoding API](https://open-meteo.com/en/docs/geocoding-api)
+
+## 📸 Preview
+
+Projeto desenvolvido para estudos no Bootcamp JavaScript Full Stack da Generation Brasil com apoio de Inteligência Artificial (ChatGPT/OpenAI).
+
+## 👩‍💻 Autoria
+
+Desenvolvido por kayanedvlsantos-create.
