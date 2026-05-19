@@ -2,29 +2,57 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Weather App</title>
+
   <link rel="stylesheet" href="src/css/styles.css" />
 </head>
+
 <body>
+
   <div class="container">
+
     <h1>🌤️ Weather App</h1>
 
-    <div class="autocomplete">
-      <input type="text" id="cityInput" placeholder="Cidade" />
-      <div id="suggestions"></div>
+    <button id="themeToggle">🌙 Dark Mode</button>
+
+    <div class="controls">
+
+      <div class="autocomplete">
+        <input
+          type="text"
+          id="cityInput"
+          placeholder="Cidade"
+        />
+
+        <div id="suggestions"></div>
+      </div>
+
+      <input
+        type="text"
+        id="stateInput"
+        placeholder="Estado"
+      />
+
+      <button id="searchBtn">Buscar</button>
+
+      <button id="geoBtn">
+        📍 Minha localização
+      </button>
+
     </div>
 
-    <input type="text" id="stateInput" placeholder="Estado (ex: MS)" />
-
-    <button id="searchBtn">Buscar</button>
-    <button id="geoBtn">📍 Usar minha localização</button>
-
-    <div id="loading" class="hidden">⏳ Carregando...</div>
+    <div id="loading" class="hidden">
+      ⏳ Carregando...
+    </div>
 
     <div id="history"></div>
+
     <div id="weather"></div>
+
   </div>
 
   <script type="module" src="src/js/main.js"></script>
+
 </body>
 </html>

@@ -64,6 +64,10 @@ export function formatWeatherData(location, weather) {
     temperature: weather.current_weather.temperature,
     windspeed: weather.current_weather.windspeed,
     weathercode: weather.current_weather.weathercode,
+    humidity: weather.hourly.relative_humidity_2m[0],
+    apparentTemp: weather.hourly.apparent_temperature[0],
+    time: weather.current_weather.time,
+    winddirection: weather.current_weather.winddirection,
   };
 }
 

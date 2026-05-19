@@ -8,6 +8,8 @@ const geoBtn = document.getElementById("geoBtn");
 const loading = document.getElementById("loading");
 const suggestionsBox = document.getElementById("suggestions");
 
+let debounceTimeout;
+
 // ================= LOADING =================
 function showLoading() {
   loading.classList.remove("hidden");
@@ -90,38 +92,44 @@ geoBtn.addEventListener("click", () => {
 });
 
 // ================= AUTOCOMPLETE =================
-cityInput.addEventListener("input", async () => {
-  const value = cityInput.value.trim();
+cityInput.addEventListener("input", () => {
+  clearTimeout(debounceTimeout);
 
-  if (value.length < 3) {
-    suggestionsBox.innerHTML = "";
-    return;
-  }
+  debounceTimeout = setTimeout(async () => {
+    const value = cityInput.value.trim();
 
-  try {
-    const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(value)}&count=5&language=pt&format=json`;
-
-    const res = await fetch(url);
-    const data = await res.json();
-
-    if (!data.results) {
-      suggestionsBox.innerHTML = "<div class='suggestion-item'>Nenhuma cidade</div>";
+    if (value.length < 3) {
+      suggestionsBox.innerHTML = "";
       return;
     }
 
-    suggestionsBox.innerHTML = data.results
-      .map(
-        (c) => `
-        <div class="suggestion-item" data-city="${c.name}" data-state="${c.admin1 || ""}">
-          ${c.name} ${c.admin1 ? "- " + c.admin1 : ""}
-        </div>
-      `
-      )
-      .join("");
+    try {
+      const url = `https://geocoding-api.open-meteo.com/v1/search?name=${encodeURIComponent(value)}&count=5&language=pt&format=json`;
 
-  } catch (err) {
-    suggestionsBox.innerHTML = "<div class='suggestion-item'>Erro</div>";
-  }
+      const res = await fetch(url);
+      const data = await res.json();
+
+      if (!data.results) {
+        suggestionsBox.innerHTML = "";
+        return;
+      }
+
+      suggestionsBox.innerHTML = data.results
+        .map(
+          (c) => `
+          <div class="suggestion-item"
+            data-city="${c.name}"
+            data-state="${c.admin1 || ""}">
+            ${c.name} ${c.admin1 ? "- " + c.admin1 : ""}
+          </div>
+        `
+        )
+        .join("");
+
+    } catch {
+      suggestionsBox.innerHTML = "";
+    }
+  }, 400);
 });
 
 // clique nas sugestões
@@ -133,3 +141,20 @@ suggestionsBox.addEventListener("click", (e) => {
   stateInput.value = item.dataset.state;
   suggestionsBox.innerHTML = "";
 });
+
+// ================= DARK MODE =================
+
+const themeToggle = document.getElementById("themeToggle");
+
+themeToggle.addEventListener("click", () => {
+  document.body.classList.toggle("dark");
+
+  const isDark = document.body.classList.contains("dark");
+
+  localStorage.setItem("theme", isDark ? "dark" : "light");
+});
+
+// carregar tema salvo
+if (localStorage.getItem("theme") === "dark") {
+  document.body.classList.add("dark");
+}
